@@ -79,6 +79,24 @@ Para criar um novo repositório via linha de comado:
 
 5. Crie sua `branch` usando `git branch -m main`.
 
+6. Verifique se sua branch está apontando para um endereço remoto `git remote -v`.
+
+7. Crie sua branch no github e copie seu endereço.
+
+8. Lembra daquele endereço de branch, vamos usá-lo agora para idicar para sua máquina com qual endereço esse projeto deve ser sincronizado usando o comando `git remote add origin ssh://git@endereçoDaBranch.com:1234/meuRepositorio.git`.
+
+9. Confira novamente se sua branch aponta para um endereço remoto `git remote -v`, agora devem aparecer os endereços de fetch e push assim: 
+```
+$git remote -v
+
+meuRepositorio ssh://git@endereçoDaBranch.com:1234/meuRepositorio.git (fetch)
+
+meuRepositorio ssh://git@endereçoDaBranch.com:1234/meuRepositorio.git (push)
+```
+
+10. Com tudo isso definido, pode fazer suas alterações e manda-las para o github sem medo.
+
+
 ## Comandos Básicos
 
 O Git conta com uma série de comandos, alguns mais gerais e outros mais específicos. Segue abaixo uma lista com alguns dos comandos básicos que são utilizados em toda criação e manipulação de projetos Git.
@@ -151,9 +169,71 @@ Carrega no repositório local todos os remotes do repositório na núvem, ou sej
 `git merge <nome_da_branch>`
 É utilizado para fundir duas branches, a branch selecionada <nome_da_branch> com a branch atual.
 
+### Flags/bandeiras mais comuns no Git
+
+1. `git init`:
+
+    - `--bare`: Cria um repositório bare, que é um repositório sem uma working directory. É usado principalmente para repositórios remotos.
+
+2. `git clone`:
+
+    - `--depth <depth>`: Realiza um clone superficial com um histórico de commits limitado ao número especificado. Isso pode ser útil para economizar tempo e espaço.
+    - `--branch <branch>`: Clona um branch específico ao invés do branch padrão (geralmente main ou master).
+
+3. `git add`:
+
+    - `-A` ou `--all`: Adiciona todos os arquivos novos, modificados e deletados para a área de staging.
+    -`-p` ou `--patch`: Permite que você adicione partes específicas de um arquivo para a área de staging, interativamente.
+
+4. `git commit`:
+
+    - `-m <message>`: Especifica a mensagem de commit diretamente na linha de comando, sem abrir um editor de texto.
+    - `--amend`: Modifica o commit mais recente. Pode ser usado para alterar a mensagem do commit ou adicionar mudanças adicionais.
+
+5. `git status`:
+
+    - `-s` ou `--short`: Exibe um status mais compacto.
+    - `-b` ou `--branch`: Exibe informações adicionais sobre o branch atual.
+
+6. `git log`:
+
+    - `--oneline`: Mostra cada commit em uma única linha, com um resumo curto.
+    - `--graph`: Exibe um gráfico ASCII de branches e merges.
+    - `--decorate`: Adiciona nomes de branches e tags aos commits.
+
+7. `git checkout`: 
+
+    - `-b <branch>`: Cria e muda para um novo branch.
+    - `-- <file>`: Recupera o arquivo especificado do commit mais recente ou da área de staging, descartando as mudanças locais.
+
+8. `git merge`:
+    
+    - `--no-ff`: Realiza um merge sem fast-forward, sempre criando um novo commit de merge.
+    - `--squash`: Combina todos os commits da branch de feature em um único commit na branch de destino, sem fazer um commit de merge.
+
+9. `git pull`:
+
+    - `--rebase`: Realiza um rebase ao invés de um merge, aplicando as mudanças locais sobre as mudanças remotas.
+
+10. `git push`:
+
+    - `--force` ou `-f`: Força o push, sobrescrevendo a história remota. Use com cautela.
+    - `--set-upstream` ou `-u`: Define a branch remota como upstream para a branch atual.
+
+11. `git rebase`:
+
+    - `-i` ou `--interactive`: Inicia um rebase interativo, permitindo que você modifique commits individualmente.
+
+12. `git reset`:
+
+    - `--hard`: Reseta o índice e a working directory para o estado do commit especificado. Todas as mudanças locais serão perdidas.
+    - `--soft`: Reseta apenas o índice, mantendo as mudanças na working directory.
+
+Essas flags são apenas algumas das mais comuns e úteis para diversas operações diárias no Git. Cada comando Git possui várias outras opções que podem ser usadas para realizar operações específicas e detalhadas. Para uma lista completa de flags e suas descrições, você pode consultar a documentação oficial do Git ou usar git help <command> para mais informações sobre um comando específico.
+
 Podem haver CONFLITOS ao realizar o merge entre duas branches. Se um conflito ocorre, é necessário selecionar qual versão deve ser mantida e qual deve ser descartada.
 
-Nesses casos pode ser necessário usar a flag `-f` ou `--force` para forçar o comando de `push`ou `pull` ou mesmo a flag `--rebase` com o comando rebase , você pode pegar todas as alterações que foram confirmadas em um branch e reproduzi-las em outro. O rebase tem recursos poderosos para reescrever o histórico, logo em alguns casos é usado como parte da resolução de conflitos.
+Nesses casos pode ser necessário usar a flag `-r` ou `--rebase` com o comando de `push`ou `pull`, com a flag `--rebase`, você pode pegar todas as alterações que foram confirmadas em um branch e reproduzi-las em outro. O rebase tem recursos poderosos para reescrever o histórico, logo em alguns casos é usado como parte da resolução de conflitos. Em ultimo caso usamos para aresolução dos conflitos a flag `-f` ou `--force` para forçar o comando.
 
 # Comandos Git utilizados juntos
 
